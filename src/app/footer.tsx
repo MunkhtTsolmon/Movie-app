@@ -26,7 +26,7 @@ export const Footer = () => {
               Movie Z
             </p>
           </div>
-          <p className="text-[0.875rem] text-[#FAFAFA] font-normal mt-[0.4rem]">
+          <p className="text-[0.875rem] text-[#FAFAFA] font-normal mt-[0.4rem] inline">
             © 2024 Movie Z. All Rights Reserved.
           </p>
         </div>
@@ -62,7 +62,7 @@ export const Footer = () => {
             <p className="text-[#FAFAFA] text-[0.875rem] font-normal">
               Follow us
             </p>
-            <div className="sm:flex gap-[0.75rem]">
+            <div className="sm:flex gap-[0.75rem] mt-[0.4rem]">
               <p className="text-[#FAFAFA] text-[0.875rem] font-semibold">
                 Facebook
               </p>

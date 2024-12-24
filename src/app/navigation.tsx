@@ -1,7 +1,35 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+
 export const Navigation = () => {
+  const [searchChange, setSearchChange] = useState(true);
+
+  const changeSearch = () => {
+    setSearchChange(!searchChange);
+  };
+
   return (
-    <div className="mt-[0.5rem] p-[2rem] flex justify-between">
+    <>
+      {searchChange ? (
+        <NavigationOne
+          changeSearch={changeSearch}
+          searchChange={searchChange}
+          setSearchChange={setSearchChange}
+        />
+      ) : (
+        <NavigationTwo changeSearch={changeSearch} />
+      )}
+    </>
+  );
+};
+
+const NavigationOne = ({ changeSearch }) => {
+  return (
+    <div className=" p-[2rem] flex justify-between">
       <div className="w-[5.75rem] flex gap-[0.3rem] text-indigo-700 items-center">
         <div className="w-[1.25rem] h-[1.25rem]">
           <svg
@@ -22,7 +50,7 @@ export const Navigation = () => {
         <p className="font-bold text-[1.1rem] italic mt-[-0.2rem]">Movie Z</p>
       </div>
       <div className="flex gap-[0.4rem]">
-        <button>
+        <button onClick={changeSearch}>
           <Image src={"/search.png"} width={36} height={36} alt="search" />
         </button>
         <Image src={"/darkButton.png"} width={36} height={36} alt="dark" />
@@ -30,3 +58,14 @@ export const Navigation = () => {
     </div>
   );
 };
+
+const NavigationTwo = ({ changeSearch }) => {
+  return (
+    <div className=" p-[2rem] flex justify-between">
+      <Select />
+      <Input className="" />
+      <button onClick={changeSearch}>x</button>
+    </div>
+  );
+};
+

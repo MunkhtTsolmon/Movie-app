@@ -15,11 +15,7 @@ export const Navigation = () => {
   return (
     <>
       {searchChange ? (
-        <NavigationOne
-          changeSearch={changeSearch}
-          searchChange={searchChange}
-          setSearchChange={setSearchChange}
-        />
+        <NavigationOne changeSearch={changeSearch} />
       ) : (
         <NavigationTwo changeSearch={changeSearch} />
       )}
@@ -68,4 +64,3 @@ const NavigationTwo = ({ changeSearch }) => {
     </div>
   );
 };
-

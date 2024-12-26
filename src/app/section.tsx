@@ -1,5 +1,6 @@
 import { Movie } from "@/constants/types";
 import { MovieCard } from "./movieCard";
+import Link from "next/link";
 
 const options = {
   method: "GET",
@@ -28,8 +29,14 @@ export const Section = async ({ title, endpoint }: Props) => {
     <div className="p-3">
       <div className="flex justify-between">
         <h1 className="font-semibold">{title}</h1>
+        <Link href={`/${endpoint}`}>
+          <h1>See more →</h1>
+        </Link>
       </div>
-      <div key={movies.id} className="p-4 grid gap-4 grid-cols-2">
+      <div
+        key={movies.id}
+        className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+      >
         {movies.map((movie) => (
           <MovieCard movie={movie} />
         ))}

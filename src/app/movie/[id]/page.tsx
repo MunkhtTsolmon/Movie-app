@@ -1,3 +1,4 @@
+import { MovieCard } from "@/app/movieCard";
 import { Navigation } from "@/app/navigation";
 import { Badge } from "@/components/ui/badge";
 
@@ -18,6 +19,9 @@ type Writers = {
   job: string;
   name: string;
   department: string;
+};
+type Stars = {
+  name: string;
 };
 const options = {
   method: "GET",
@@ -40,6 +44,14 @@ export default async function Page({ params }: Props) {
   );
   const credits = await responseTwo.json();
   console.log(credits);
+  const responseThree = await fetch(
+    `https://api.themoviedb.org/3/movie/${params.id}/recommendations`,
+    options
+  );
+  const recommendations = await responseThree.json();
+  const movies = recommendations.results.slice(0, 2);
+  console.log(recommendations);
+
   const minuteConverter = (minutes: number) => {
     let hours = Math.floor(minutes / 60);
     let minutesDivised = minutes % 60;
@@ -84,27 +96,44 @@ export default async function Page({ params }: Props) {
           </div>
         </div>
         <div>
-          <div className="flex border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
-            <h1 className="font-bold">Director</h1>
-            {credits.crew
-              .filter((director: Director) => director.job == "Director")
-              .map((director: Director) => (
-                <h2>{director.name}</h2>
+          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
+            <h1 className="font-bold w-[64px]">Director</h1>
+            <div>
+              {credits.crew
+                .filter((director: Director) => director.job == "Director")
+                .map((director: Director) => (
+                  <h2>{director.name}</h2>
+                ))}
+            </div>
+          </div>
+          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
+            <h1 className="font-bold w-[64px]">Writers</h1>
+            <div>
+              {credits.crew
+                .filter((writers: Writers) => writers.department == "Writing")
+                .slice(0, 3)
+                .map((writers: Writers) => (
+                  <h2>{writers.name}</h2>
+                ))}
+            </div>
+          </div>
+          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
+            <h1 className="font-bold w-[64px]">Stars</h1>
+            <div>
+              {credits.cast.slice(0, 3).map((stars: Stars) => (
+                <h2>{stars.name}</h2>
               ))}
+            </div>
           </div>
-          <div className="flex border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
-            <h1 className="font-bold">Writers</h1>
-            {credits.crew
-              .filter((writers: Writers) => writers.department == "Writing")
-              .slice(0, 3)
-              .map((writers: Writers) => (
-                <h2>{writers.name}</h2>
-              ))}
-          </div>
-          <div className="flex border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
-            <h1 className="font-bold">Stars</h1>
-            <h2></h2>
-          </div>
+        </div>
+        <div className="flex mt-[5rem]">
+          <h1>More like this</h1>
+          <p>See more →</p>
+        </div>
+        <div>
+          {movies.map((movie) => (
+            <MovieCard movie={movie} />
+          ))}
         </div>
       </div>
     </>

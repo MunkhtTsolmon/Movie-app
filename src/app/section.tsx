@@ -29,7 +29,7 @@ export const Section = async ({ title, endpoint }: Props) => {
     <div className="p-3">
       <div className="flex justify-between">
         <h1 className="font-semibold">{title}</h1>
-        <Link href={`/${endpoint}`}>
+        <Link href={`/category/${endpoint}`}>
           <h1>See more →</h1>
         </Link>
       </div>

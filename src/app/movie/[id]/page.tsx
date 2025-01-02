@@ -1,6 +1,7 @@
 import { MovieCard } from "@/app/movieCard";
 import { Navigation } from "@/app/navigation";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 type Props = {
   params: {
@@ -128,7 +129,9 @@ export default async function Page({ params }: Props) {
         </div>
         <div className="flex mt-[5rem]">
           <h1>More like this</h1>
-          <p>See more →</p>
+          <Link href={`/recommended/${data.id}`}>
+            <p>See more →</p>
+          </Link>
         </div>
         <div>
           {movies.map((movie) => (

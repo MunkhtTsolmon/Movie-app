@@ -3,7 +3,13 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
+import { ChevronDown } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { FilteredGenre } from "./filteredGenre";
 
 export const Navigation = () => {
   const [searchChange, setSearchChange] = useState(true);
@@ -58,7 +64,14 @@ const NavigationOne = ({ changeSearch }) => {
 const NavigationTwo = ({ changeSearch }) => {
   return (
     <div className=" p-[2rem] flex justify-between">
-      <Select />
+      <Popover>
+        <PopoverTrigger>
+          <ChevronDown />
+        </PopoverTrigger>
+        <PopoverContent>
+          <FilteredGenre />
+        </PopoverContent>
+      </Popover>
       <Input className="" />
       <button onClick={changeSearch}>x</button>
     </div>

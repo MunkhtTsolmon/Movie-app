@@ -9,7 +9,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { MovieCard } from "../movieCard";
+import { MovieCard } from "../../movieCard";
 import { Movie } from "@/constants/types";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";

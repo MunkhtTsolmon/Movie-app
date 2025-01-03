@@ -9,13 +9,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { MovieCard } from "../movieCard";
+import { MovieCard } from "../_components/movieCard";
 import { Movie } from "@/constants/types";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Navigation } from "../navigation";
-import { FilteredGenre } from "../filteredGenre";
+import { Navigation } from "../_components/navigation";
+import { FilteredGenre } from "../_components/filteredGenre";
 
 const options = {
   method: "GET",
@@ -84,7 +84,7 @@ export default function Page() {
         {dataGenre
           ?.filter((id) => id.id == genres)
           .map((genresName) => (
-            <h1> {genresName.name}</h1>
+            <h1 key={genresName.id}> {genresName.name}</h1>
           ))}
       </div>
 

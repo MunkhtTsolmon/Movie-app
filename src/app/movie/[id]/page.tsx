@@ -1,7 +1,8 @@
-import { MovieCard } from "@/app/movieCard";
-import { Navigation } from "@/app/navigation";
+import { MovieCard } from "@/app/_components/movieCard";
+import { Navigation } from "@/app/_components/navigation";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { Movie } from "@/constants/types";
 
 type Props = {
   params: {
@@ -24,6 +25,7 @@ type Writers = {
 type Stars = {
   name: string;
 };
+
 const options = {
   method: "GET",
   headers: {
@@ -63,9 +65,13 @@ export default async function Page({ params }: Props) {
   const src = imgPath
     ? `https://image.tmdb.org/t/p/w200/${imgPath}`
     : "https://via.placeholder.com/500";
+  const imgPath1 = data?.backdrop_path;
+  const src1 = imgPath1
+    ? `https://image.tmdb.org/t/p/original/${imgPath1}`
+    : "https://via.placeholder.com/500";
   return (
     <>
-      <Navigation />
+      <Navigation /> 
       <div className="p-[2rem]">
         <h1 className="text-[1.5rem] max-w-[13.75rem] text-[black] font-semibold">
           {data.title}
@@ -83,6 +89,7 @@ export default async function Page({ params }: Props) {
             </div>
           </div>
         </div>
+        <img className="w-full h-[1/2]" src={src1} />
         <div className="flex gap-4 justify-between items-center mt-[2rem]">
           <img src={src} className="w-[6.25rem] h-[9.25rem]" />
           <div>
@@ -133,8 +140,8 @@ export default async function Page({ params }: Props) {
             <p>See more →</p>
           </Link>
         </div>
-        <div>
-          {movies.map((movie) => (
+        <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {movies.map((movie: Movie) => (
             <MovieCard movie={movie} />
           ))}
         </div>

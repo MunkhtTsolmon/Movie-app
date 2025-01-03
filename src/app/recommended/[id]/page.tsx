@@ -13,7 +13,8 @@ import { Movie } from "@/constants/types";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { MovieCard } from "@/app/movieCard";
+import { MovieCard } from "@/app/_components/movieCard";
+import { Navigation } from "@/app/_components/navigation";
 
 const options = {
   method: "GET",
@@ -30,7 +31,6 @@ export default function Page() {
   let page = searchParams.get("page") || "1";
   const pathName = usePathname();
   const router = useRouter();
-  console.log(router);
   const [movies, setMovies] = useState<Movie[]>();
 
   useEffect(() => {
@@ -53,6 +53,7 @@ export default function Page() {
 
   return (
     <div>
+      <Navigation />
       <h1>{params.category}</h1>
       {movies?.map((movie) => (
         <MovieCard movie={movie} key={movie.id} />

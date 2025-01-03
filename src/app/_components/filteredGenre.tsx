@@ -40,7 +40,6 @@ export function FilteredGenre() {
           <Badge variant="outline">{genres.name}</Badge>
         </Link>
       ))}
-      ;
     </div>
   );
 }

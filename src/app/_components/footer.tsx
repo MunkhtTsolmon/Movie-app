@@ -2,7 +2,7 @@ import { Mail } from "lucide-react";
 import { Phone } from "lucide-react";
 export const Footer = () => {
   return (
-    <footer className="bg-indigo-700 w-full h-fit  ">
+    <footer className="bg-indigo-700 w-full h-fit mt-[10rem]  ">
       <div className="w-[89vw] h-fit  mx-auto pt-[2.5rem] sm:flex pb-[1rem]">
         <div className="w-[15.4rem] h-[5rem]">
           <div className="w-[5.75rem] flex gap-[0.3rem]">

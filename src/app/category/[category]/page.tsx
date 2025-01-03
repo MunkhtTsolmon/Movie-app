@@ -9,11 +9,12 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { MovieCard } from "../../movieCard";
+import { MovieCard } from "../../_components/movieCard";
 import { Movie } from "@/constants/types";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Navigation } from "@/app/_components/navigation";
 
 const options = {
   method: "GET",
@@ -54,10 +55,15 @@ export default function Page() {
 
   return (
     <div>
-      <h1>{params.category}</h1>
-      {movies?.map((movie) => (
-        <MovieCard movie={movie} key={movie.id} />
-      ))}
+      <Navigation />
+      <h1 className="font-semibold text-[1.625rem] p-4">
+        {params?.category?.toUpperCase().replaceAll("_", " ")}
+      </h1>
+      <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        {movies?.map((movie) => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
+      </div>
       <Pagination>
         <PaginationContent>
           <PaginationItem>

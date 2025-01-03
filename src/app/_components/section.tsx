@@ -19,26 +19,20 @@ export const Section = async ({ title, endpoint }: Props) => {
     `https://api.themoviedb.org/3/movie/${endpoint}?language=en-US&page=30`,
     options
   );
-  // .then((res) => res.json())
-  // .then((data) => {
-  //   console.log(data);
-  // });
+
   const resJson = await response.json();
   const movies: Movie[] = resJson.results.slice(0, 10);
   return (
     <div className="p-3">
-      <div className="flex justify-between">
-        <h1 className="font-semibold">{title}</h1>
+      <div className="p-4 flex justify-between items-center">
+        <h1 className="font-semibold text-[1.625rem]">{title}</h1>
         <Link href={`/category/${endpoint}`}>
-          <h1>See more →</h1>
+          <h1 className="font-medium">See more →</h1>
         </Link>
       </div>
-      <div
-        key={movies.id}
-        className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
-      >
+      <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {movies.map((movie) => (
-          <MovieCard movie={movie} />
+          <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>
     </div>

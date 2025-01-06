@@ -11,6 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { FilteredGenre } from "./filteredGenre";
+import { SearchForMainPage } from "./searchMain";
 
 export const Navigation = () => {
   const [searchChange, setSearchChange] = useState(true);
@@ -79,7 +80,7 @@ const NavigationTwo = ({ changeSearch }) => {
         </PopoverContent>
       </Popover>
       <div className="flex">
-        <Input className="w-[100%]" />
+        <SearchForMainPage />
         <button
           onClick={changeSearch}
           className="flex justify-center items-center w-[36px] h-[36px]"

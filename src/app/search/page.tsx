@@ -27,10 +27,9 @@ const options = {
 };
 
 export default function Page() {
-  const params = useParams();
   const searchParams = useSearchParams();
   let page = searchParams.get("page") || "1";
-  const genres = searchParams.get("with_genres");
+  const query = searchParams.get("query");
   const pathName = usePathname();
   const router = useRouter();
   console.log(router);
@@ -40,7 +39,7 @@ export default function Page() {
   useEffect(() => {
     const fetchMovies = async () => {
       const response = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?with_genres=${genres}&language=en-US&page=${page}`,
+        `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=${page}`,
         options
       );
       const responseTwo = await fetch(
@@ -50,10 +49,10 @@ export default function Page() {
       const dataTwo = await responseTwo.json();
       const data = await response.json();
       setdataGenre(dataTwo?.genres);
-      setMovies(data?.results);
+      setMovies(data?.results.slice(0, 10));
     };
     fetchMovies();
-  }, [genres, page]);
+  }, [query, page]);
   console.log(movies);
   const onChangePage = (newPage: number) => {
     const newSearchParams = new URLSearchParams(searchParams.toString());
@@ -67,32 +66,23 @@ export default function Page() {
       <Navigation />
       <div className="px-[20px] pb-[20px]">
         <div className="text-[#09090B] text-[1.5rem] font-[600] py-5">
-          Search filter
+          Search results
         </div>
-        <div className="text-[#09090B] text-[1.25rem] font-[600] ">
-          Search by genre
-        </div>
-        <div className="text-[#09090B] text-[1rem] ">
-          See lists of movies by genre
-        </div>
-      </div>
-      <div className="px-[20px]">
-        <FilteredGenre />
-      </div>
-      <div className="flex gap-1 px-[20px] py-[20px] text-[1.26rem] font-[600]">
-        20 titles in
-        {dataGenre
-          ?.filter((id) => id.id == genres)
-          .map((genresName) => (
-            <h1 key={genresName.id}> {genresName.name}</h1>
-          ))}
       </div>
       <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {movies?.map((movie) => (
           <MovieCard movie={movie} key={movie.id} />
         ))}
       </div>
-
+      <div className="text-[#09090B] text-[1.25rem] font-[600] ">
+        Search by genre
+      </div>
+      <div className="text-[#09090B] text-[1rem] ">
+        See lists of movies by genre
+      </div>
+      <div className="px-[20px]">
+        <FilteredGenre />
+      </div>
       <Pagination>
         <PaginationContent>
           <PaginationItem>

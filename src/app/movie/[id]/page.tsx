@@ -71,7 +71,7 @@ export default async function Page({ params }: Props) {
     : "https://via.placeholder.com/500";
   return (
     <>
-      <Navigation /> 
+      <Navigation />
       <div className="p-[2rem]">
         <h1 className="text-[1.5rem] max-w-[13.75rem] text-[black] font-semibold">
           {data.title}

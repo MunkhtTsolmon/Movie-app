@@ -31,6 +31,10 @@ export const SearchResult = ({ searchValue }: SearchResultProps) => {
     fetchMovies();
   }, [searchValue]);
   console.log(movies);
+  const imgPath = movies?.poster_path ?? movies?.backdrop_path;
+  const src = imgPath
+    ? `https://image.tmdb.org/t/p/original/${imgPath}`
+    : "https://via.placeholder.com/500";
   return (
     <div className="absolute m-auto top-20 md:top-14 bg-background rounded-lg shadow-lg z-10">
       {!movies ? (
@@ -40,8 +44,10 @@ export const SearchResult = ({ searchValue }: SearchResultProps) => {
           <div className="p-3">
             {movies.map((movie) => (
               <Link href={`/movie/${movie.id}`} key={movie.id}>
-                <div className="h-[51px]">
-                  <h1 className="text-[20px] text-[black] font-semibold">
+                <div className="h-[120px] flex">
+                  <img src={src} className="w-[70px] h-[100px]" />
+                  <div>
+                    <h1 className="text-[16px] text-[black] font-medium">
                     {movie.title}
                   </h1>
                   <div className="flex items-center">
@@ -50,7 +56,12 @@ export const SearchResult = ({ searchValue }: SearchResultProps) => {
                       <p>{movie?.vote_average?.toFixed(1)}/10</p>
                     </div>
                   </div>
+                  <div className="flex justify-between content-center">
+                    <h4 className="text-[14px] font-medium">{movie.release_date}</h4>
+                    <h1 className="font-medium text-[14px]">See more →</h1>
+                  </div>
                 </div>
+                  </div>
               </Link>
             ))}
           </div>

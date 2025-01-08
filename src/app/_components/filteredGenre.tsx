@@ -37,7 +37,9 @@ export function FilteredGenre() {
           key={"genre" + genres.id}
           href={`/genres?with_genres=${genres.id}`}
         >
-          <Badge variant="outline">{genres.name}</Badge>
+          <Badge className="m-1" variant="outline">
+            {genres.name}
+          </Badge>
         </Link>
       ))}
     </div>

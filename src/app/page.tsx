@@ -8,9 +8,9 @@ export default async function Home() {
     <div>
       <Navigation />
       <HeroSection />
-      <Section title="Upcoming" endpoint="upcoming" />
-      <Section title="Top rated" endpoint="top_rated" />
       <Section title="Popular" endpoint="popular" />
+      <Section title="Top rated" endpoint="top_rated" />
+      <Section title="Upcoming" endpoint="upcoming" />
     </div>
   );
 }

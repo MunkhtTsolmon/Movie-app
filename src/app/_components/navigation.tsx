@@ -75,7 +75,7 @@ const NavigationTwo = ({ changeSearch }) => {
             <ChevronDown className="w-[20px] h-[20px]" />
           </div>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-2 bg-white border rounded-md shadow-lg mt-[20px]">
+        <PopoverContent className="absolute top-8 left-1/2 bg-background rounded-lg shadow-lg z-10">
           <FilteredGenre />
         </PopoverContent>
       </Popover>

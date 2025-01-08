@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { Movie } from "@/constants/types";
 import Link from "next/link";
-import { title } from "process";
 
 type SearchResultProps = {
   searchValue: string;
@@ -16,7 +15,7 @@ const options = {
   },
 };
 export const SearchResult = ({ searchValue }: SearchResultProps) => {
-  const [movies, setMovies] = useState<Movie[]>();
+  const [movies, setMovies] = useState<any>();
   useEffect(() => {
     const fetchMovies = async () => {
       const response = await fetch(
@@ -31,37 +30,42 @@ export const SearchResult = ({ searchValue }: SearchResultProps) => {
     fetchMovies();
   }, [searchValue]);
   console.log(movies);
-  const imgPath = movies?.poster_path ?? movies?.backdrop_path;
-  const src = imgPath
-    ? `https://image.tmdb.org/t/p/original/${imgPath}`
-    : "https://via.placeholder.com/500";
   return (
-    <div className="absolute m-auto top-20 md:top-14 bg-background rounded-lg shadow-lg z-10">
+    <div className="absolute left-1/2 top-[540px] transform -translate-x-1/2 -translate-y-1/2 bg-background rounded-lg shadow-lg z-10">
       {!movies ? (
         <p>loading...</p>
       ) : (
         <>
           <div className="p-3">
-            {movies.map((movie) => (
+            {movies.map((movie: Movie) => (
               <Link href={`/movie/${movie.id}`} key={movie.id}>
-                <div className="h-[120px] flex">
-                  <img src={src} className="w-[70px] h-[100px]" />
-                  <div>
-                    <h1 className="text-[16px] text-[black] font-medium">
-                    {movie.title}
-                  </h1>
-                  <div className="flex items-center">
-                    <p className="text-[1rem]">⭐️</p>
-                    <div>
-                      <p>{movie?.vote_average?.toFixed(1)}/10</p>
+                <div className="h-[160px] w-[280px] flex justify-between p-3 border-b-[1px]">
+                  <img
+                    src={`https://image.tmdb.org/t/p/original/${
+                      movie?.poster_path
+                        ? movie?.poster_path
+                        : "https://via.placeholder.com/500"
+                    }`}
+                    className="w-[80px] h-[130px]"
+                  />
+                  <div className="w-[151px] h-[140px] relative">
+                    <h1 className="text-[16px] text-[black] font-semibold">
+                      {movie.title}
+                    </h1>
+                    <div className="flex items-center">
+                      <p className="text-[1rem]">⭐️</p>
+                      <div>
+                        <p>{movie?.vote_average?.toFixed(1)}/10</p>
+                      </div>
+                    </div>
+                    <div className="flex bottom-2 gap-[30px] h-[36px] justify-between content-center absolute">
+                      <h4 className="text-[14px] font-medium">
+                        {movie.release_date.trim().slice(0, 4)}
+                      </h4>
+                      <h1 className="font-medium text-[14px]">See more →</h1>
                     </div>
                   </div>
-                  <div className="flex justify-between content-center">
-                    <h4 className="text-[14px] font-medium">{movie.release_date}</h4>
-                    <h1 className="font-medium text-[14px]">See more →</h1>
-                  </div>
                 </div>
-                  </div>
               </Link>
             ))}
           </div>

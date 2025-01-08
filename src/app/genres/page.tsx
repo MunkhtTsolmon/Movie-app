@@ -11,7 +11,7 @@ import {
 
 import { MovieCard } from "../_components/movieCard";
 import { Movie } from "@/constants/types";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Navigation } from "../_components/navigation";
@@ -27,15 +27,14 @@ const options = {
 };
 
 export default function Page() {
-  const params = useParams();
   const searchParams = useSearchParams();
   let page = searchParams.get("page") || "1";
   const genres = searchParams.get("with_genres");
   const pathName = usePathname();
   const router = useRouter();
   console.log(router);
-  const [movies, setMovies] = useState<Movie[]>();
-  const [dataGenre, setdataGenre] = useState();
+  const [movies, setMovies] = useState<any>();
+  const [dataGenre, setdataGenre] = useState<any>();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -82,13 +81,13 @@ export default function Page() {
       <div className="flex gap-1 px-[20px] py-[20px] text-[1.26rem] font-[600]">
         20 titles in
         {dataGenre
-          ?.filter((id) => id.id == genres)
-          .map((genresName) => (
+          ?.filter((id: any) => id.id == genres)
+          .map((genresName: any) => (
             <h1 key={genresName.id}> {genresName.name}</h1>
           ))}
       </div>
       <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {movies?.map((movie) => (
+        {movies?.map((movie: Movie) => (
           <MovieCard movie={movie} key={movie.id} />
         ))}
       </div>

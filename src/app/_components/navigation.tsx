@@ -55,12 +55,33 @@ const NavigationOne = ({ changeSearch }) => {
           <p className="font-bold text-[1.1rem] italic mt-[-0.2rem]">Movie Z</p>
         </div>
       </Link>
-
-      <div className="flex gap-[0.4rem]">
-        <button onClick={changeSearch}>
+      <div className="max-w-full p-[2rem] md:flex gap-2 justify-between content-center hidden">
+        <Popover>
+          <PopoverTrigger>
+            <div className="h-[40px] w-[36px] md:w-fit md:p-2 border-[1px] rounded-md flex justify-center items-center cursor-pointer">
+              <ChevronDown className="w-[20px] h-[20px] opacity-50" />
+              <h1 className="text-[16px] font-medium opacity-50 ">Genre</h1>
+            </div>
+          </PopoverTrigger>
+          <PopoverContent className="absolute top-8 left-1/2 bg-background rounded-lg shadow-lg z-10">
+            <FilteredGenre />
+          </PopoverContent>
+        </Popover>
+        <div className="flex">
+          <SearchForMainPage />
+        </div>
+      </div>
+      <div className="flex gap-[0.4rem] items-center">
+        <button className="block md:hidden" onClick={changeSearch}>
           <Image src={"/search.png"} width={36} height={36} alt="search" />
         </button>
-        <Image src={"/darkButton.png"} width={36} height={36} alt="dark" />
+        <Image
+          src={"/darkButton.png"}
+          width={36}
+          height={36}
+          className="md:h-[40px] md:w-[40px] md:mr-[1.5vw]"
+          alt="dark"
+        />
       </div>
     </div>
   );

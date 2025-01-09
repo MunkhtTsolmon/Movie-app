@@ -63,7 +63,7 @@ export default async function Page({ params }: Props) {
   };
   const imgPath = data?.poster_path ?? data?.backdrop_path;
   const src = imgPath
-    ? `https://image.tmdb.org/t/p/w200/${imgPath}`
+    ? `https://image.tmdb.org/t/p/original/${imgPath}`
     : "https://via.placeholder.com/500";
   const imgPath1 = data?.backdrop_path;
   const src1 = imgPath1
@@ -72,8 +72,8 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <Navigation />
-      <div className="p-[2rem]">
-        <h1 className="text-[1.5rem] max-w-[13.75rem] text-[black] font-semibold">
+      <div className="p-[2rem] lg:px-[10rem] 2xl:px-[14rem]">
+        <h1 className="text-[1.5rem] max-w-[13.75rem] md:max-w-[30rem] text-[black] font-semibold">
           {data.title}
         </h1>
         <div className="flex justify-between">
@@ -89,9 +89,16 @@ export default async function Page({ params }: Props) {
             </div>
           </div>
         </div>
-        <img className="w-full h-[1/2]" src={src1} />
+        <div className="flex justify-between mt-4">
+          <img
+            src={src}
+            className="w-[30%] h-[1/2]] hidden sm:block rounded-md"
+          />
+          <img className="md:w-[67%] h-[1/2] rounded-md" src={src1} />
+        </div>
+
         <div className="flex gap-4 justify-between items-center mt-[2rem]">
-          <img src={src} className="w-[6.25rem] h-[9.25rem]" />
+          <img src={src} className="w-[6.25rem] h-[9.25rem] block sm:hidden" />
           <div>
             <div className="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
               {data.genres.map((genre: Genre) => (
@@ -104,9 +111,9 @@ export default async function Page({ params }: Props) {
           </div>
         </div>
         <div>
-          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
+          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[50px] mt-[2rem]">
             <h1 className="font-bold w-[64px]">Director</h1>
-            <div>
+            <div className="flex gap-4 md:gap-10">
               {credits.crew
                 .filter((director: Director) => director.job == "Director")
                 .map((director: Director) => (
@@ -114,33 +121,33 @@ export default async function Page({ params }: Props) {
                 ))}
             </div>
           </div>
-          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
+          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[50px] mt-[2rem]">
             <h1 className="font-bold w-[64px]">Writers</h1>
-            <div>
+            <div className="flex gap-4 md:gap-10">
               {credits.crew
                 .filter((writers: Writers) => writers.department == "Writing")
-                .slice(0, 3)
+                .slice(0, 2)
                 .map((writers: Writers) => (
                   <h2>{writers.name}</h2>
                 ))}
             </div>
           </div>
-          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[41px] mt-[2rem]">
+          <div className="flex gap-8 border-b-[#E4E4E7] border-b-[1px] h-[50px] mt-[2rem]">
             <h1 className="font-bold w-[64px]">Stars</h1>
-            <div>
-              {credits.cast.slice(0, 3).map((stars: Stars) => (
+            <div className="flex gap-4 md:gap-10">
+              {credits.cast.slice(0, 2).map((stars: Stars) => (
                 <h2>{stars.name}</h2>
               ))}
             </div>
           </div>
         </div>
-        <div className="flex mt-[5rem]">
-          <h1>More like this</h1>
+        <div className="flex mt-[5rem] justify-between">
+          <h1 className="text-[24px] font-semibold">More like this</h1>
           <Link href={`/recommended/${data.id}`}>
             <p>See more →</p>
           </Link>
         </div>
-        <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="py-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {movies.map((movie: Movie) => (
             <MovieCard movie={movie} />
           ))}

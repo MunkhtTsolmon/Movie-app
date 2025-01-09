@@ -55,9 +55,12 @@ export default function Page() {
     <div>
       <Navigation />
       <h1>{params.category}</h1>
-      {movies?.map((movie) => (
-        <MovieCard movie={movie} key={movie.id} />
-      ))}
+      <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        {movies?.map((movie) => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
+      </div>
+
       <Pagination>
         <PaginationContent>
           <PaginationItem>

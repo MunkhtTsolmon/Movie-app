@@ -9,8 +9,12 @@ type SearchInputprops = {
 };
 export function SearchInput({ value, handleChange }: SearchInputprops) {
   return (
-    <div>
-      <Input className="w-[100%]" value={value} onChange={handleChange} />
+    <div className="md:w-[30vw]">
+      <Input
+        className="w-[100%] md:border-[1px] rounded-md"
+        value={value}
+        onChange={handleChange}
+      />
     </div>
   );
 }

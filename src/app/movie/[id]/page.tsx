@@ -107,7 +107,7 @@ export default async function Page({ params }: Props) {
                 </Badge>
               ))}
             </div>
-            <p className="mt-[1rem]">{data.overview}</p>
+            <p className="mt-[1rem] lg:mt-[3rem]">{data.overview}</p>
           </div>
         </div>
         <div>

@@ -31,13 +31,13 @@ export function FilteredGenre() {
   }, []);
 
   return (
-    <div>
+    <div className="lg:w-full 2xl:w-[280px]">
       {genre?.map((genres: Genre) => (
         <Link
           key={"genre" + genres.id}
           href={`/genres?with_genres=${genres.id}`}
         >
-          <Badge className="m-1" variant="outline">
+          <Badge className="m-1 lg:m-2 " variant="outline">
             {genres.name}
           </Badge>
         </Link>

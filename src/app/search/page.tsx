@@ -34,7 +34,7 @@ export default function Page() {
   const router = useRouter();
   console.log(router);
   const [movies, setMovies] = useState<Movie[]>();
-  const [dataGenre, setdataGenre] = useState();
+  const [dataGenre, setdataGenre] = useState<any>();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -64,25 +64,59 @@ export default function Page() {
   return (
     <div>
       <Navigation />
-      <div className="px-[20px] pb-[20px]">
-        <div className="text-[#09090B] text-[1.5rem] font-[600] py-5">
-          Search results
+
+      <div className="block sm:hidden">
+        <div className="px-[20px] pb-[20px]">
+          <div className="text-[#09090B] text-[1.5rem] font-[600] py-5">
+            Search filter
+          </div>
+          <div className="text-[#09090B] text-[1.25rem] font-[600]">
+            Search by genre
+          </div>
+          <div className="text-[#09090B] text-[1rem]">
+            See lists of movies by genre
+          </div>
+        </div>
+        <div className="px-[20px]">
+          <FilteredGenre />
         </div>
       </div>
-      <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {movies?.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
-        ))}
+
+      <div className="flex justify-between md:px-[4rem] lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem]">
+        <div className="md:w-[57%] px-4 border-r-[1px]">
+          <div className="flex gap-1 px-[20px] py-[20px] text-[1.26rem] font-[600]">
+            20 titles in
+            {dataGenre
+              ?.filter((id: any) => id.id === dataGenre)
+              .map((genresName: any) => (
+                <h1 key={genresName.id}> {genresName.name}</h1>
+              ))}
+          </div>
+          <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {movies?.map((movie) => (
+              <MovieCard movie={movie} key={movie.id} />
+            ))}
+          </div>
+        </div>
+
+        <div className="w-[38%] lg:w-[30%] hidden sm:block">
+          <div className="px-[20px] pb-[20px]">
+            <div className="text-[#09090B] text-[1.5rem] font-[600] py-5">
+              Search filter
+            </div>
+            <div className="text-[#09090B] text-[1.25rem] font-[600]">
+              Search by genre
+            </div>
+            <div className="text-[#09090B] text-[1rem]">
+              See lists of movies by genre
+            </div>
+          </div>
+          <div className="px-[20px]">
+            <FilteredGenre />
+          </div>
+        </div>
       </div>
-      <div className="text-[#09090B] text-[1.25rem] font-[600] ">
-        Search by genre
-      </div>
-      <div className="text-[#09090B] text-[1rem] ">
-        See lists of movies by genre
-      </div>
-      <div className="px-[20px]">
-        <FilteredGenre />
-      </div>
+
       <Pagination>
         <PaginationContent>
           <PaginationItem>

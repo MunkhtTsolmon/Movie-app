@@ -49,7 +49,7 @@ export const SearchResult = ({ searchValue }: SearchResultProps) => {
                     className="w-[80px] h-[130px]"
                   />
                   <div className="w-[151px] h-[140px] relative">
-                    <h1 className="text-[16px] text-[black] font-semibold">
+                    <h1 className="text-[16px] text-foreground font-semibold">
                       {movie.title}
                     </h1>
                     <div className="flex items-center">

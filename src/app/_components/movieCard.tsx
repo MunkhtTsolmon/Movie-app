@@ -8,7 +8,7 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
     : "https://via.placeholder.com/500";
   return (
     <Link href={`/movie/${movie.id}`}>
-      <div className="rounded-lg bg-gray-100 w-fit h-fit">
+      <div className="rounded-lg bg-secondary w-fit h-fit">
         <img src={src} className="rounded-t-lg" />
         <div className="p-2">
           <div className="flex items-center gap-5">

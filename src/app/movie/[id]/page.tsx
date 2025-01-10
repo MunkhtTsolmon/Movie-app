@@ -1,5 +1,4 @@
 import { MovieCard } from "@/app/_components/movieCard";
-import { Navigation } from "@/app/_components/navigation";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Movie } from "@/constants/types";
@@ -71,7 +70,6 @@ export default async function Page({ params }: Props) {
     : "https://via.placeholder.com/500";
   return (
     <>
-      <Navigation />
       <div className="p-[2rem] lg:px-[10rem] 2xl:px-[14rem]">
         <h1 className="text-[1.5rem] max-w-[13.75rem] md:max-w-[30rem] text-[black] font-semibold">
           {data.title}
@@ -117,7 +115,7 @@ export default async function Page({ params }: Props) {
               {credits.crew
                 .filter((director: Director) => director.job == "Director")
                 .map((director: Director) => (
-                  <h2>{director.name}</h2>
+                  <h2 key={director.name}>{director.name}</h2>
                 ))}
             </div>
           </div>
@@ -136,7 +134,7 @@ export default async function Page({ params }: Props) {
             <h1 className="font-bold w-[64px]">Stars</h1>
             <div className="flex gap-4 md:gap-10">
               {credits.cast.slice(0, 2).map((stars: Stars) => (
-                <h2>{stars.name}</h2>
+                <h2 key={stars.name + "1"}>{stars.name}</h2>
               ))}
             </div>
           </div>
@@ -149,7 +147,7 @@ export default async function Page({ params }: Props) {
         </div>
         <div className="py-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {movies.map((movie: Movie) => (
-            <MovieCard movie={movie} />
+            <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
       </div>

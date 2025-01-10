@@ -14,7 +14,6 @@ import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MovieCard } from "@/app/_components/movieCard";
-import { Navigation } from "@/app/_components/navigation";
 
 const options = {
   method: "GET",
@@ -53,7 +52,6 @@ export default function Page() {
 
   return (
     <div>
-      <Navigation />
       <h1>{params.category}</h1>
       <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {movies?.map((movie) => (

@@ -14,7 +14,7 @@ import { Movie } from "@/constants/types";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Navigation } from "@/app/_components/navigation";
+import Skeleton from "react-loading-skeleton";
 
 const options = {
   method: "GET",
@@ -33,6 +33,7 @@ export default function Page() {
   const router = useRouter();
   console.log(router);
   const [movies, setMovies] = useState<Movie[]>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -42,6 +43,7 @@ export default function Page() {
       );
       const data = await response.json();
       setMovies(data?.results?.slice(0, 10));
+      setLoading(false);
     };
     fetchMovies();
   }, [params.category, page]);
@@ -55,14 +57,19 @@ export default function Page() {
 
   return (
     <div>
-      <Navigation />
       <h1 className="font-semibold text-[1.625rem] p-4">
         {params?.category?.toUpperCase().replaceAll("_", " ")}
       </h1>
       <div className="p-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {movies?.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
-        ))}
+        {loading
+          ? Array(10)
+              .fill(null)
+              .map((_, index) => (
+                <div key={index}>
+                  <Skeleton width="full" height="250px" />
+                </div>
+              ))
+          : movies?.map((movie) => <MovieCard movie={movie} key={movie.id} />)}
       </div>
       <Pagination>
         <PaginationContent>

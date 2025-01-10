@@ -14,7 +14,6 @@ import { Movie } from "@/constants/types";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Navigation } from "../_components/navigation";
 import { FilteredGenre } from "../_components/filteredGenre";
 
 const options = {
@@ -63,7 +62,6 @@ export default function Page() {
   console.log(dataGenre);
   return (
     <div>
-      <Navigation />
       <div className="block sm:hidden">
         <div className="px-[20px] pb-[20px]">
           <div className="text-[#09090B] text-[1.5rem] font-[600] py-5">

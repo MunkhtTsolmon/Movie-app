@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import {
@@ -16,6 +15,16 @@ import { SearchForMainPage } from "./searchMain";
 export const Navigation = () => {
   const [searchChange, setSearchChange] = useState(true);
 
+  const [theme, setTheme] = useState(`light`);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle(`dark`, theme === `dark`);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === `light` ? `dark` : `light`);
+  };
+
   const changeSearch = () => {
     setSearchChange(!searchChange);
   };
@@ -23,7 +32,11 @@ export const Navigation = () => {
   return (
     <>
       {searchChange ? (
-        <NavigationOne changeSearch={changeSearch} />
+        <NavigationOne
+          theme={theme}
+          toggleTheme={toggleTheme}
+          changeSearch={changeSearch}
+        />
       ) : (
         <NavigationTwo changeSearch={changeSearch} />
       )}
@@ -31,7 +44,7 @@ export const Navigation = () => {
   );
 };
 
-const NavigationOne = ({ changeSearch }) => {
+const NavigationOne = ({ changeSearch, toggleTheme, theme }: any) => {
   return (
     <div className=" p-[2rem] flex justify-between">
       <Link className="content-center" href="#">
@@ -73,21 +86,42 @@ const NavigationOne = ({ changeSearch }) => {
       </div>
       <div className="flex gap-[0.4rem] items-center">
         <button className="block md:hidden" onClick={changeSearch}>
-          <Image src={"/search.png"} width={36} height={36} alt="search" />
+          {theme == "light" ? (
+            <Image src={"/search.png"} width={36} height={36} alt="search" />
+          ) : (
+            <Image
+              src={"/searchDark.png"}
+              width={36}
+              height={36}
+              alt="search"
+            />
+          )}
         </button>
-        <Image
-          src={"/darkButton.png"}
-          width={36}
-          height={36}
-          className="md:h-[40px] md:w-[40px] md:mr-[1.5vw]"
-          alt="dark"
-        />
+        {theme == "light" ? (
+          <Image
+            src={"/darkButton.png"}
+            width={36}
+            height={36}
+            className="md:h-[40px] md:w-[40px] md:mr-[1.5vw]"
+            alt="dark"
+            onClick={toggleTheme}
+          />
+        ) : (
+          <Image
+            src={"/darkBtnDark.png"}
+            width={36}
+            height={36}
+            className="md:h-[40px] md:w-[40px] md:mr-[1.5vw]"
+            alt="dark"
+            onClick={toggleTheme}
+          />
+        )}
       </div>
     </div>
   );
 };
 
-const NavigationTwo = ({ changeSearch }) => {
+const NavigationTwo = ({ changeSearch }: any) => {
   return (
     <div className="max-w-full p-[2rem] flex justify-between content-center">
       <Popover>

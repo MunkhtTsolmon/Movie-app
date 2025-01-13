@@ -11,7 +11,7 @@ import {
 
 import { Movie } from "@/constants/types";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MovieCard } from "@/app/_components/movieCard";
 
@@ -24,7 +24,7 @@ const options = {
   },
 };
 
-export default function Page() {
+function PageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   let page = searchParams.get("page") || "1";
@@ -84,5 +84,12 @@ export default function Page() {
         </PaginationContent>
       </Pagination>
     </div>
+  );
+}
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PageContent />
+    </Suspense>
   );
 }

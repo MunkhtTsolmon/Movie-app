@@ -1,4 +1,6 @@
 "use client";
+
+import { Suspense, useEffect, useState } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -8,11 +10,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-
 import { MovieCard } from "../_components/movieCard";
 import { Movie } from "@/constants/types";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FilteredGenre } from "../_components/filteredGenre";
 
@@ -25,13 +25,12 @@ const options = {
   },
 };
 
-export default function Page() {
+function PageContent() {
   const searchParams = useSearchParams();
   let page = searchParams.get("page") || "1";
   const genres = searchParams.get("with_genres");
   const pathName = usePathname();
   const router = useRouter();
-  console.log(router);
   const [movies, setMovies] = useState<any>();
   const [dataGenre, setdataGenre] = useState<any>();
 
@@ -52,14 +51,14 @@ export default function Page() {
     };
     fetchMovies();
   }, [genres, page]);
-  console.log(movies);
+
   const onChangePage = (newPage: number) => {
     const newSearchParams = new URLSearchParams(searchParams.toString());
     newSearchParams.set("page", newPage.toString());
     const newUrl = pathName + "?" + newSearchParams.toString();
     router.push(newUrl);
   };
-  console.log(dataGenre);
+
   return (
     <div>
       <div className="block sm:hidden">
@@ -137,5 +136,13 @@ export default function Page() {
         </PaginationContent>
       </Pagination>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PageContent />
+    </Suspense>
   );
 }

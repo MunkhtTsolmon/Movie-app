@@ -26,7 +26,7 @@ const options = {
 };
 
 export default function Page() {
-  const params = useParams();
+  const params: any = useParams();
   const searchParams = useSearchParams();
   let page = searchParams.get("page") || "1";
   const pathName = usePathname();
